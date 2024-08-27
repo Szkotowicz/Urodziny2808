@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wprowadź kod</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Fajerwerki */
+        .firework {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background-color: white;
+            border-radius: 50%;
+            animation: explode 1.5s ease-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(50);
+                opacity: 0;
+            }
+        }
+
+        /* Balony */
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            width: 50px;
+            height: 70px;
+            animation: floatUp 5s ease-in infinite;
+            pointer-events: none;
+        }
+
+        .balloon:before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background-color: #aaa;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120vh);
+                opacity: 0;
+            }
+        }
+
+        /* Inne animacje urodzinowe */
+        .confetti {
+            position: absolute;
+            top: -10px;
+            width: 10px;
+            height: 10px;
+            background-color: #ff0;
+            animation: fall 3s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Ukryty film z muzyką */
+        .background-audio {
+            position: fixed;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wprowadź kod</h1>
+        <input type="text" id="codeInput" placeholder="Wpisz 8-cyfrowy kod">
+        <button onclick="checkCode()">Zatwierdź</button>
+        <p class="error" id="error">Nieprawidłowy kod. Spróbuj ponownie.</p>
+    </div>
+
+    <!-- Skrypt do animacji -->
+    <script>
+        // Tworzenie fajerwerków
+        for (let i = 0; i < 15; i++) {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = Math.random() * 100 + 'vw';
+            firework.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(firework);
+        }
+
+        // Tworzenie balonów
+        for (let i = 0; i < 10; i++) {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = Math.random() * 100 + 'vw';
+            balloon.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            balloon.style.animationDuration = (3 + Math.random() * 2) + 's';
+            document.body.appendChild(balloon);
+        }
+
+        // Tworzenie konfetti
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+            confetti.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            document.body.appendChild(confetti);
+        }
+
+        // Sprawdzanie kodu
+        function checkCode() {
+            const correctCode = "12345678"; // Tutaj wprowadź właściwy kod
+            const inputCode = document.getElementById("codeInput").value;
+            const errorElement = document.getElementById("error");
+
+            if (inputCode === correctCode) {
+                // Tutaj wprowadź link do wybranego filmu na YouTube
+                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; 
+            } else {
+                errorElement.style.display = "block";
+            }
+        }
+    </script>
+
+    <!-- Osadzenie filmu z muzyką w tle -->
+    <iframe class="background-audio" src="https://www.youtube.com/embed/5qm8PH4xAss?autoplay=1&loop=1&playlist=5qm8PH4xAss" frameborder="0" allow="autoplay"></iframe>
+</body>
+</html>
